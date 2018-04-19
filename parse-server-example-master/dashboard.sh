@@ -1,0 +1,1 @@
+parse-dashboard --appId AppId_2 --masterKey MasterKey_2 --serverURL http://localhost:1337/parse
