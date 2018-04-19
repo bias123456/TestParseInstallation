@@ -1,0 +1,8 @@
+parse-server-example-master
+1. parse官方的样例 （当然也可用于部署到正式服务器）
+2. 可以采用原代码调试
+3. 详情可参考 https://github.com/bias123456/MyDocument/blob/master/Parse安装部署及使用介绍/01%20Parse服务器安装指南.docx
+
+
+parse-server-deploy
+1. parse 部署到正式服务器的方法

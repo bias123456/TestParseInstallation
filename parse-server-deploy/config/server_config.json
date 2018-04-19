@@ -1,0 +1,12 @@
+{
+    "appId":"AppId_2",
+    "masterKey":"MasterKey_2", 
+    "serverURL":"http://localhost:1337/parse",
+    "databaseURI":"mongodb://localhost/test_2",
+    "port": 1337,
+    "cloud":"/cloud/main.js",
+    "liveQuery": {
+      "classNames": ["Posts", "Comments"]
+    }
+}
+

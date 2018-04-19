@@ -1,0 +1,59 @@
+1. 安装 Homebrew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+
+安装git (视实际情况，一般不用安装) brew install git
+
+2. 安装nodejs (其已经包含npm工具包)
+brew install node
+
+
+3. 安装mp2
+npm install -g pm2 
+
+
+4. 安装mongodb
+npm install -g mongodb-runner  
+
+
+
+5. 启动mongodb
+mongodb-runner start
+注意为保证数据安全，mongodb可以彩下面两种方式
+1） 设置只能本机访问 (一般可以采用本方式) 命令：./mongod --bind_ip 127.0.0.1 --dbpath /data/db --auth
+2） 为数据库增加登录密码 https://github.com/bias123456/MyDocument/blob/master/Parse安装部署及使用介绍/mongodb设置密码.docx  (如果采用此方式，则下方启动时的databaseURI参数需要使用含用户名和密码的格式)
+
+6. 本地安装 parse-server , parse-dashboard (这里建议在系统路径中添加一个本地文件夹（如：parse）,然后进入该文档夹，使用本地安装命令安装 parse-server parse-dashboard
+
+mkdir parse
+cd parse
+npm install parse-server 
+npm install parse-dashboard
+
+
+7.创建云函数文件夹及文件 ( /cloud/main.js)
+mkdir cloud
+cd cloud
+touch main.js
+
+
+8. 关于启动的详细说明可参考
+https://github.com/parse-community/parse-server
+https://github.com/parse-community/parse-dashboard
+
+
+启动方式1 ：命令启动 parse-server ， parse-dashboard
+parse-server --appId APPLICATION_ID --masterKey MASTER_KEY --databaseURI mongodb://localhost/test[这里表示本地mongodb数据库实例名test,不同parse-server需要使用不同的数据库名以防止数据混乱] --port optionalPort[1337]
+
+parse-dashboard --appId APPLICATION_ID --masterKey MASTER_KEY --serverURL https://example.com/parse[与本parse-dashboard对应的parse-server的域名地址(需要包含端口号,本机调试用本地域名localhost,服务器部署后要用服务器域名地址或ip地址)] --appName optionalName --port optionalPort[4040]
+
+
+8 .启动方式2：启动可以通过自己写express代码 ，详情请参考上方的github网页
+
+
+9. 其他启动方式3：用json文件启动，具体样式可参
+
+
+
+
+

@@ -1,0 +1,13 @@
+{
+    "appId":"AppId_3",
+    "masterKey":"MasterKey_3", 
+    "domain":"http://localhost",
+    "port": 1337,
+    "databaseURI":null,
+    "serverURL":null,
+    "appName":null,
+    "cloud":null,
+    "liveQuery": {
+      "classNames": ["Posts", "Comments"]
+    }
+}

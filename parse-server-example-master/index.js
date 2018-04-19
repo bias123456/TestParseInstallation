@@ -15,7 +15,7 @@ if (!databaseUri) {
 
 //启动的函数
 var api = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://localhost/test',
+  databaseURI: databaseUri || 'mongodb://localhost/test_2',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'AppId_2',
   masterKey: process.env.MASTER_KEY || 'MasterKey_2', //Add your master key here. Keep it secret!
