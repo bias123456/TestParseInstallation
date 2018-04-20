@@ -1,0 +1,16 @@
+{
+    "apps": [
+      {
+        "appId": "AppId_startWithJson",
+        "masterKey": "MasterKey_startWithJson",
+        "serverURL": "http://localhost:1337/parse",      
+        "port": 4040
+      }
+    ],
+    "users": [
+      {
+        "user":"admin",
+        "pass":"aaa123HHH***"
+      }
+    ]
+  }

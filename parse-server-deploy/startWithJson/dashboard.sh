@@ -1,0 +1,1 @@
+parse-dashboard --config dashboard_config.json

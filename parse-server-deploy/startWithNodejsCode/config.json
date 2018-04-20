@@ -1,13 +1,21 @@
 {
-    "appId":"AppId_3",
-    "masterKey":"MasterKey_3", 
+    "uid":"startWithNodejsCode",
     "domain":"http://localhost",
-    "port": 1337,
+    "port":1337,
+    "independentDashboardPort":0,
+    "appId":null,
+    "masterKey":null, 
     "databaseURI":null,
     "serverURL":null,
     "appName":null,
     "cloud":null,
     "liveQuery": {
       "classNames": ["Posts", "Comments"]
-    }
+    },
+    "users": [
+      {
+        "user":"admin",
+        "pass":"aaa123HHH***"
+      }
+    ]
 }

@@ -7,74 +7,102 @@
 // console.log(__dirname)
 // console.log(process.cwd())
 
-const fs = require("fs");
+
+// var object_a = {"a0":1,"a1":"hello"};
+// var object_b = object_a;
+// console.log(object_a);
+// console.log(object_b);
+// console.log("part1 test finished");
+// object_b.a0 = 20;
+// console.log(object_a);
+// console.log(object_b);
+// console.log("part2 test finished");
+
+
+
+
+const GMConfigHelper = require("./GMConfigHelper");
+const path = require('path');
 const express = require('express');
 const ParseServer = require('/usr/local/lib/node_modules/parse-server').ParseServer;
 const ParseDashboard = require('/usr/local/lib/node_modules/parse-dashboard');
 
-//"serverURL":"http://localhost:1337/parse",
-//"databaseURI":"mongodb://localhost/test_2",
-var configData = fs.readFileSync(__dirname+"/config.json");
-var config = JSON.parse(configData);
-
-if( config.appId == null ){
-    console.log( "config.appId can't be null");
-    return;
-}
-if( config.masterKey == null ){
-    console.log( "config.masterKey can't be null");
-    return;
-}
-if( config.domain == null ){
-    console.log( "config.domain can't be null");
-    return;
-}
-if( config.port == 0 ){
-    console.log( "config.appId can't be 0");
-    return;
-}
-
-if( config.databaseURI == null ){
-    config.databaseURI = "mongodb://localhost/"+config.appId;
-}
-
-if( config.serverURL == null ){
-    config.serverURL = config.domain+":"+config.port+"/parse";
-}
-
-if( config.appName == null ){
-    config.appName = config.appId;
-}
-
-if( config.cloud == null ){
-    config.cloud = __dirname+"/cloud/main.js";
-}
-
-//__dirname+"/cloud/main.js"
 
 
 
-var api = new ParseServer(config);
+
+var configHelper = new GMConfigHelper();
+var config = configHelper.makeParseConfigs(__dirname+"/config.json");
+var server_config = config.server_config;
+var dashboard_config = config.dashboard_config;
+console.log("server_config"+server_config);
+console.log("dashboard_config"+dashboard_config);
+
+
+var api = new ParseServer(server_config);
 
 var options = { allowInsecureHTTP: false };
 
-var dashboard = new ParseDashboard(config, options);
+var dashboard = new ParseDashboard(dashboard_config, options);
 
-var app = express();
+var server_app = express();
+
+
+// Serve static assets from the /public folder
+server_app.use('/public', express.static(path.join(__dirname, '/public')));
+
+// Parse Server plays nicely with the rest of your web routes
+// server_app.get('/', function(req, res) {
+//     res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
+//   });
+
+  
+  
+// There will be a test page available on the /test path of your server url
+// Remove this before launching your server_app
+server_app.get('/test', function(req, res) {
+    res.sendFile(path.join(__dirname, '/public/test.html'));
+});
 
 // make the Parse Server available at /parse
-app.use('/parse', api);
+server_app.use('/parse', api);
 
-// make the Parse Dashboard available at /dashboard
-app.use('/dashboard', dashboard);
+//如果server和dashboard共用一个端口，则把dashboard的入口点放到server的app里
+if( dashboard_config.port == server_config.port )
+{
+    // make the Parse Dashboard available at /dashboard
+    server_app.use('/dashboard', dashboard);
+    //这里为了方便进入dashboard，所以改为"/"路径就可以直接进入dashboard
+    server_app.use('/', dashboard);
+}
 
-var httpServer = require('http').createServer(app);
-httpServer.listen(config.port);
+
+var server_httpServer = require('http').createServer(server_app);
+server_httpServer.listen(server_config.port,function(){
+    console.log('server running on port ' + server_config.port + '.');
+
+    if( dashboard_config.port == server_config.port ){
+        //如果server和dashboard共用一个端口,则在这里也打印dashboard的端口信息
+        console.log('dashboard running on port ' + dashboard_config.port + '.');
+    }
+});
+
+if( dashboard_config.port != server_config.port )
+{
+    var dashboard_app = express();
+    // make the Parse Dashboard available at /dashboard
+    dashboard_app.use('/dashboard', dashboard);
+    //这里为了方便进入dashboard，所以改为"/"路径就可以直接进入dashboard
+    dashboard_app.use('/', dashboard);
+
+    var dashboard_httpServer = require('http').createServer(dashboard_app);
+    dashboard_httpServer.listen(dashboard_config.port,function(){
+        //因为server和dashboard不是共用一个端口，所以这里重新打印dashboard的端口信息
+        console.log('dashboard running on port ' + dashboard_config.port + '.');
+    });
 
 
-    // "users": [
-    //     {
-    //       "user":"admin",
-    //       "pass":"aaa111HHH***"
-    //     }
-    //   ]
+}
+
+
+

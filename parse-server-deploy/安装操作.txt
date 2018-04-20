@@ -23,15 +23,15 @@ mongodb-runner start
 1） 设置只能本机访问 (一般可以采用本方式) 命令：./mongod --bind_ip 127.0.0.1 --dbpath /data/db --auth
 2） 为数据库增加登录密码 https://github.com/bias123456/MyDocument/blob/master/Parse安装部署及使用介绍/mongodb设置密码.docx  (如果采用此方式，则下方启动时的databaseURI参数需要使用含用户名和密码的格式)
 
-6. 本地安装 parse-server , parse-dashboard (这里建议在系统路径中添加一个本地文件夹（如：parse）,然后进入该文档夹，使用本地安装命令安装 parse-server parse-dashboard
+6. 全局或本地安装 parse-server , parse-dashboard (建议在系统路径中添加一个本地文件夹（如：parse）),
 
 mkdir parse
 cd parse
-npm install parse-server 
-npm install parse-dashboard
+npm install -g parse-server 
+npm install -g parse-dashboard
 
 
-7.创建云函数文件夹及文件 ( /cloud/main.js)
+7.创建云函数文件夹及文件 ( ./cloud/main.js)
 mkdir cloud
 cd cloud
 touch main.js

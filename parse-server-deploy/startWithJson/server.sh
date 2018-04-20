@@ -1,0 +1,1 @@
+parse-server server_config.json

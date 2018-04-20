@@ -1,0 +1,12 @@
+{
+    "appId":"AppId_startWithJson",
+    "masterKey":"MasterKey_startWithJson", 
+    "serverURL":"http://localhost:1337/parse",
+    "databaseURI":"mongodb://localhost/AppId_startWithJson",
+    "port": 1337,
+    "appName":"startWithJson",
+    "cloud":"./cloud/main.js",
+    "liveQuery": {
+    "classNames": ["Posts", "Comments"]
+    }
+}
