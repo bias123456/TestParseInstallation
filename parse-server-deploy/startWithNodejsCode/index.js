@@ -8,6 +8,7 @@
 // console.log(process.cwd())
 
 
+
 // var object_a = {"a0":1,"a1":"hello"};
 // var object_b = object_a;
 // console.log(object_a);
@@ -35,8 +36,12 @@ var configHelper = new GMConfigHelper();
 var config = configHelper.makeParseConfigs(__dirname+"/config.json");
 var server_config = config.server_config;
 var dashboard_config = config.dashboard_config;
-console.log("server_config"+server_config);
-console.log("dashboard_config"+dashboard_config);
+console.log("/*--------------server_config start---------------*/");
+console.log(server_config);
+console.log("/*--------------server_config end---------------*/");
+console.log("/*--------------dashboard_config start---------------*/");
+console.log(dashboard_config);
+console.log("/*--------------dashboard_config end---------------*/");
 
 
 var api = new ParseServer(server_config);

@@ -9,23 +9,26 @@ function GMConfigHelper (){
     GMConfigHelper.prototype.makeParseConfigs = function( settingPath ){
         var configData = fs.readFileSync(settingPath);
         var config = JSON.parse(configData);
+        var defaultUid = "Server";
+        var messageForUseDefaultUid = " we will use [" + defaultUid + "] as uid.";
 
         if( config.uid == null ){
-            console.log( "config.uid can't be null");
-            return null;
+            console.log( "config.uid can't be null," + messageForUseDefaultUid );
+            //return null;
+            config.uid = defaultUid;
         }
 
-        console.log(config.uid instanceof Object );//false
-        console.log( typeof config.uid == "string" );//true
+        //console.log(config.uid instanceof Object );//false
+        //console.log( typeof config.uid == "string" );//true
 
         if( typeof config.uid != "string" ){
-            console.log( "config.uid must be [String] type");
-            return null;
+            console.log( "config.uid must be [String] type," + messageForUseDefaultUid );
+            config.uid = defaultUid;
         }
 
         if( config.uid.length == 0 ){
-            console.log( "the length of config.uid must be larger than 0.");
-            return null;
+            console.log( "the length of config.uid must be larger than 0," + messageForUseDefaultUid );
+            config.uid = defaultUid;
         }
 
 
