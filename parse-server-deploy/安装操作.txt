@@ -27,8 +27,9 @@ mongodb-runner start
 
 mkdir parse
 cd parse
-npm install -g parse-server 
-npm install -g parse-dashboard
+npm init //在parse目录下创建配置文件，这样本地安装时，sdk都会安装到本目录下
+npm install parse-server 
+npm install parse-dashboard
 
 
 7.创建云函数文件夹及文件 ( ./cloud/main.js)
@@ -48,7 +49,10 @@ parse-server --appId APPLICATION_ID --masterKey MASTER_KEY --databaseURI mongodb
 parse-dashboard --appId APPLICATION_ID --masterKey MASTER_KEY --serverURL https://example.com/parse[与本parse-dashboard对应的parse-server的域名地址(需要包含端口号,本机调试用本地域名localhost,服务器部署后要用服务器域名地址或ip地址)] --appName optionalName --port optionalPort[4040]
 
 
-8 .启动方式2：启动可以通过自己写express代码 ，详情请参考上方的github网页
+8 .启动方式2：启动可以通过自己写nodeJS代码 ，详情请参考上方的github网页
+注意如果parse-server,parse-dashboard是全局安装,则在代码引用时需要加上具体的路径。如下
+const ParseServer = require('/usr/local/lib/node_modules/parse-server').ParseServer;
+const ParseDashboard = require('/usr/local/lib/node_modules/parse-dashboard');
 
 
 9. 其他启动方式3：用json文件启动，具体样式可参

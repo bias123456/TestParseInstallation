@@ -25,8 +25,8 @@
 const GMConfigHelper = require("./GMConfigHelper");
 const path = require('path');
 const express = require('express');
-const ParseServer = require('/usr/local/lib/node_modules/parse-server').ParseServer;
-const ParseDashboard = require('/usr/local/lib/node_modules/parse-dashboard');
+const ParseServer = require('parse-server').ParseServer;
+const ParseDashboard = require('parse-dashboard');
 
 
 
